@@ -1,1 +1,6 @@
-nothing here
+hello, suggested query execution plan for your query is as following
+step 1: {'Node Type': 'Seq Scan', 'Parent Relationship': 'Outer', 'Parallel Aware': 'False', 'Relation Name': 'demo1', 'Alias': 'demo1', 'Startup Cost': 0.0, 'Total Cost': 22.7, 'Plan Rows': 1270, 'Plan Width': 36}
+step 2: from result of step 1, {'Node Type': 'Sort', 'Parent Relationship': 'Outer', 'Parallel Aware': 'False', 'Startup Cost': 88.17, 'Total Cost': 91.35, 'Plan Rows': 1270, 'Sort Key': ['demo1.num'], 'Plan Width': 36}
+step 3: {'Node Type': 'Seq Scan', 'Parent Relationship': 'Outer', 'Parallel Aware': 'False', 'Relation Name': 'demo2', 'Alias': 'demo2', 'Startup Cost': 0.0, 'Total Cost': 22.7, 'Plan Rows': 1270, 'Plan Width': 36}
+step 4: from result of step 3, {'Node Type': 'Sort', 'Parent Relationship': 'Inner', 'Parallel Aware': 'False', 'Startup Cost': 88.17, 'Total Cost': 91.35, 'Plan Rows': 1270, 'Plan Width': 36, 'Sort Key': ['demo2.num']}
+step 5: from result of step 2,4, {'Node Type': 'Merge Join', 'Parallel Aware': 'False', 'Join Type': 'Inner', 'Startup Cost': 176.34, 'Total Cost': 303.67, 'Plan Rows': 8064, 'Plan Width': 72, 'Merge Cond': '(demo1.num = demo2.num)'}
