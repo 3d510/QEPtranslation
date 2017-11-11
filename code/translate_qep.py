@@ -71,12 +71,12 @@ def translate_qepdict_to_nodes(qepdict):
 
 
 def translate_node_to_text(node_dict):
-    node_type = node_dict['Node Type']
+    node_type = node_dict.pop('Node Type')
+    plan_rows = node_dict.get('Plan Rows', 'unknown numbers of')
     qep_text = ""
 
     # scan operator
     if 'Scan' in node_type:
-        plan_rows = node_dict.get('Plan Rows', 'unknown numbers of')
         relation_name = node_dict.get('Relation Name')
         alias = node_dict.get('Alias')
         filter = node_dict.get('Filter')
@@ -100,16 +100,18 @@ def translate_node_to_text(node_dict):
 
         if filter:
             qep_text += (' with filter ' + filter)
-        qep_text += "\n there are %s rows returned" % str(plan_rows)
-
 
     # default return value
     if qep_text == "":
-        qep_text = "perform %s operation" % node_type
+        qep_text = "perform %s operation with" % node_type
+        for key, value in node_dict.items():
+            if 'Cost' in key or key == 'Plan Rows' or key == 'Plan Width':
+                continue
+            qep_text += (" %s is %s, " % (key, value))
+    qep_text += "\n there are %s rows returned" % str(plan_rows)
 
     # post process qep_text
-    qep_text = qep_text.lower()
-    qep_text = re.sub(r'[()\[\]{}]', '', qep_text)
+    qep_text = re.sub(r'[()\[\]{}]', '', qep_text.lower())
     qep_text = qep_text.replace(">=", "greater than or equal")\
         .replace("<=", "smaller than or equal")\
         .replace("=", "equal")\

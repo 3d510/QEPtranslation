@@ -3,11 +3,14 @@ step 1:
  perform sequential scan on table demo1 as demo1
  there are 1270 rows returned
 step 2:
- from result of step 1, perform sort operation
+ from result of step 1, perform sort operation with parent relationship is outer,  parallel aware is false,  sort key is 'demo1.num', 
+ there are 1270 rows returned
 step 3:
  perform sequential scan on table demo2 as demo2
  there are 1270 rows returned
 step 4:
- from result of step 3, perform sort operation
+ from result of step 3, perform sort operation with parent relationship is inner,  parallel aware is false,  sort key is 'demo2.num', 
+ there are 1270 rows returned
 step 5:
- from result of step 2,4, perform merge join operation
+ from result of step 2,4, perform merge join operation with parallel aware is false,  join type is inner,  merge cond is demo1.num equal demo2.num, 
+ there are 8064 rows returned

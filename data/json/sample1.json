@@ -1,0 +1,45 @@
+[                                                                                                 
+  {
+    "Plan": {
+      "Node Type": "Aggregate",
+      "Strategy": "Hashed",
+      "Startup Cost": 20000000016.00,
+      "Total Cost": 20000000020.00,
+      "Plan Rows": 400,
+      "Plan Width": 25,
+      "Group Key": ["actor.actor_id", "actor.first_name", "actor.last_name", "actor.last_update"],
+      "Plans": [
+        {
+          "Node Type": "Append",
+          "Parent Relationship": "Outer",
+          "Startup Cost": 10000000000.00,
+          "Total Cost": 20000000012.00,
+          "Plan Rows": 400,
+          "Plan Width": 25,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Member",
+              "Relation Name": "actor",
+              "Alias": "actor",
+              "Startup Cost": 10000000000.00,
+              "Total Cost": 10000000004.00,
+              "Plan Rows": 200,
+              "Plan Width": 25
+            },
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Member",
+              "Relation Name": "actor_dup",
+              "Alias": "actor_dup",
+              "Startup Cost": 10000000000.00,
+              "Total Cost": 10000000004.00,
+              "Plan Rows": 200,
+              "Plan Width": 25
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
