@@ -1,0 +1,26 @@
+ [                                          
+   {                                        
+     "Plan": {                              
+       "Node Type": "Bitmap Heap Scan",     
+       "Relation Name": "actor",            
+       "Alias": "actor",                    
+       "Startup Cost": 9.70,                
+       "Total Cost": 14.20,                 
+       "Plan Rows": 200,                    
+       "Plan Width": 4,                     
+       "Recheck Cond": "(actor_id < 1000)", 
+       "Plans": [                           
+         {                                  
+           "Node Type": "Bitmap Index Scan",
+           "Parent Relationship": "Outer",  
+           "Index Name": "actor_idx",       
+           "Startup Cost": 0.00,            
+           "Total Cost": 9.64,              
+           "Plan Rows": 200,                
+           "Plan Width": 0,                 
+           "Index Cond": "(actor_id < 1000)"
+         }                                  
+       ]                                    
+     }                                      
+   }                                        
+ ]

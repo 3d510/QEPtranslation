@@ -1,0 +1,13 @@
+hello, suggested query execution plan for your query is as following
+step 1:
+ perform sequential scan on table demo1 as demo1
+ there are 1270 rows returned
+step 2:
+ from result of step 1, perform sort operation
+step 3:
+ perform sequential scan on table demo2 as demo2
+ there are 1270 rows returned
+step 4:
+ from result of step 3, perform sort operation
+step 5:
+ from result of step 2,4, perform merge join operation

@@ -1,0 +1,12 @@
+[                                     
+  {
+    "Plan": {
+      "Node Type": "Index Scan",
+      "Scan Direction": "Forward",
+      "Index Name": "film_idx",
+      "Relation Name": "film",
+      "Alias": "film",
+      "Index Cond": "(film_id < 1000)"
+    }
+  }
+]

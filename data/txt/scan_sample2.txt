@@ -1,0 +1,7 @@
+hello, suggested query execution plan for your query is as following
+step 1:
+ perform bitmap index scan on index actor_idx with condition actor_id smaller than 1000
+ there are 200 rows returned
+step 2:
+ from result of step 1, perform bitmap heap scan on table actor as actor with recheck condition actor_id smaller than 1000
+ there are 200 rows returned

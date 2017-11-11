@@ -1,0 +1,4 @@
+hello, suggested query execution plan for your query is as following
+step 1:
+ perform index scan on table film as film on index film_idx with condition film_id smaller than 1000
+ there are unknown numbers of rows returned
