@@ -1,4 +1,4 @@
 hello, suggested query execution plan for your query is as following
 step 1:
- perform index scan operation with scan direction is forward,  index name is film_idx,  relation name is film,  alias is film,  index condition is film_id smaller than 1000, 
- there are unknown numbers of rows returned
+ perform index scan operation with relation film aliased film,  scan direction is forward,  index name is film_idx,  index condition is film_id smaller than 1000, 
+ there are unknown numbers of rows returned with startup cost none and total cost none

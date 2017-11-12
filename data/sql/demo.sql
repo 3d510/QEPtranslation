@@ -1,0 +1,1 @@
+select actor_id from actor where actor_id = (select min(actor_id) from actor);

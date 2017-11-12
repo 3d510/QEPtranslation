@@ -1,7 +1,7 @@
 hello, suggested query execution plan for your query is as following
 step 1:
  perform bitmap index scan operation with parent relationship is outer,  index name is actor_idx,  index condition is actor_id smaller than 1000, 
- there are 200 rows returned
+ there are 200 rows returned with startup cost 0.0 and total cost 9.64
 step 2:
- from result of step 1, perform bitmap heap scan operation with relation name is actor,  alias is actor,  recheck condition is actor_id smaller than 1000, 
- there are 200 rows returned
+ from result of step 1, perform bitmap heap scan operation with relation actor aliased actor,  recheck condition is actor_id smaller than 1000, 
+ there are 200 rows returned with startup cost 9.7 and total cost 14.2

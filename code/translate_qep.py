@@ -6,8 +6,8 @@ import glob
 from collections import OrderedDict
 
 
-def translate_qep_to_text(qep_json_path, qep_text_path=os.path.join('..', 'data', 'txt', 'sample.txt')):
-    qep_dict = translate_qep_to_dict(qep_json_path)
+def translate_qeptree_to_text(qep_json_path, qep_text_path=os.path.join('..', 'data', 'txt', 'sample.txt')):
+    qep_dict = translate_qepjson_to_dict(qep_json_path)
     node_data, node_children = translate_qepdict_to_nodes(qep_dict)
 
     # traverse the qep tree
@@ -36,7 +36,7 @@ def translate_qep_to_text(qep_json_path, qep_text_path=os.path.join('..', 'data'
             f.write("step %d:\n %s%s\n" % (idx + 1, children_results, node_data[node_id]))
 
 
-def translate_qep_to_dict(qep_path):
+def translate_qepjson_to_dict(qep_path):
     with open(qep_path, 'r') as f:
         plan = json.load(f, object_pairs_hook=OrderedDict)[0]['Plan']
     return plan
@@ -80,11 +80,15 @@ def translate_node_to_text(node_dict):
         qep_text = "get value of operation where"
     else:
         qep_text = "perform %s operation with" % node_type
+
+    if 'Relation Name' in node_dict:
+        qep_text += " relation %s aliased %s, " % (node_dict['Relation Name'], node_dict['Alias'])
     for key, value in node_dict.items():
-        if key in ['Plan Width', 'Plan Rows', 'Startup Cost', "Total Cost", "Parallel Aware"]:
+        if key in ['Plan Width', 'Plan Rows', 'Startup Cost', "Total Cost", "Parallel Aware", "Relation Name", 'Alias']:
             continue
         qep_text += (" %s is %s, " % (key, value))
-    qep_text += "\n there are %s rows returned" % str(plan_rows)
+    qep_text += "\n there are %s rows returned with startup cost %s and total cost %s" \
+                % (str(plan_rows), node_dict.get('Startup Cost'), node_dict.get('Total Cost'))
 
     # post process qep_text
     qep_text = re.sub(r'[()\[\]{}$]', '', qep_text.lower())  # remove brackets and $ sign
@@ -97,6 +101,3 @@ def translate_node_to_text(node_dict):
         .replace(" cond ", " condition ")
     return qep_text
 
-json_files = glob.glob(os.path.join('..', 'data', 'json', "*.json"))
-for json_file in json_files:
-    translate_qep_to_text(json_file, json_file.replace('json', 'txt'))
