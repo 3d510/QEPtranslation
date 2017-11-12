@@ -2,3 +2,4 @@
 .pdf
 sound.mp3
 __pycache__/
+.pyc

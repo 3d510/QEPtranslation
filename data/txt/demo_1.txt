@@ -1,6 +1,6 @@
 hello, suggested query execution plan for your query is as following
 step 1:
- perform index only scan operation with relation actor aliased actor_1,  parent relationship is outer,  scan direction is forward,  index name is actor_idx,  index condition is actor_id is not null, 
+ perform index only scan operation with relation actor aliased actor_1,  index condition is actor_id is not null,  index name is actor_idx,  parent relationship is outer,  scan direction is forward, 
  there are 200 rows returned with startup cost 0.14 and total cost 16.66
 step 2:
  from result of step 1, perform limit operation with parent relationship is initplan,  subplan name is initplan 1 returns 0, 

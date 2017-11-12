@@ -1,16 +1,16 @@
 hello, suggested query execution plan for your query is as following
 step 1:
- perform sequential scan operation with parent relationship is outer,  relation name is demo1,  alias is demo1, 
- there are 1270 rows returned
+ perform sequential scan operation with relation demo1 aliased demo1,  parent relationship is outer, 
+ there are 1270 rows returned with startup cost 0.0 and total cost 22.7
 step 2:
  from result of step 1, perform sort operation with parent relationship is outer,  sort key is 'demo1 num', 
- there are 1270 rows returned
+ there are 1270 rows returned with startup cost 88.17 and total cost 91.35
 step 3:
- perform sequential scan operation with parent relationship is outer,  relation name is demo2,  alias is demo2, 
- there are 1270 rows returned
+ perform sequential scan operation with relation demo2 aliased demo2,  parent relationship is outer, 
+ there are 1270 rows returned with startup cost 0.0 and total cost 22.7
 step 4:
  from result of step 3, perform sort operation with parent relationship is inner,  sort key is 'demo2 num', 
- there are 1270 rows returned
+ there are 1270 rows returned with startup cost 88.17 and total cost 91.35
 step 5:
  from result of step 2,4, perform merge join operation with join type is inner,  merge condition is demo1 num equal demo2 num, 
- there are 8064 rows returned
+ there are 8064 rows returned with startup cost 176.34 and total cost 303.67
