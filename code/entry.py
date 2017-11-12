@@ -6,7 +6,7 @@ import glob
 
 from code.translate_qep import translate_qeptree_to_text
 
-dbname = 'dvdrental'
+dbname = 'postgres'
 user = 'postgres'
 host = 'localhost'
 
