@@ -1,0 +1,13 @@
+hello, suggested query execution plan for your query is as following
+step 1:
+ perform index only scan operation with parent relationship is outer,  scan direction is forward,  index name is actor_idx,  relation name is actor,  alias is actor_1,  index condition is actor_id is not null, 
+ there are 200 rows returned
+step 2:
+ from result of step 1, perform limit operation with parent relationship is initplan,  subplan name is initplan 1 returns 0, 
+ there are 1 rows returned
+step 3:
+ from result of step 2, get value of operation where parent relationship is initplan,  subplan name is initplan 2 returns 1, 
+ there are 1 rows returned
+step 4:
+ from result of step 3, perform sequential scan operation with relation name is actor,  alias is actor,  filter is actor_id equal 1, 
+ there are 1 rows returned

@@ -3,6 +3,7 @@ import queue
 import os
 import re
 import glob
+from collections import OrderedDict
 
 
 def translate_qep_to_text(qep_json_path, qep_text_path=os.path.join('..', 'data', 'txt', 'sample.txt')):
@@ -37,7 +38,7 @@ def translate_qep_to_text(qep_json_path, qep_text_path=os.path.join('..', 'data'
 
 def translate_qep_to_dict(qep_path):
     with open(qep_path, 'r') as f:
-        plan = json.load(f)[0]['Plan']
+        plan = json.load(f, object_pairs_hook=OrderedDict)[0]['Plan']
     return plan
 
 
@@ -72,51 +73,28 @@ def translate_qepdict_to_nodes(qepdict):
 
 def translate_node_to_text(node_dict):
     node_type = node_dict.pop('Node Type')
+    node_type = node_type.replace('Seq', 'Sequential')
     plan_rows = node_dict.get('Plan Rows', 'unknown numbers of')
-    qep_text = ""
 
-    # scan operator
-    if 'Scan' in node_type:
-        relation_name = node_dict.get('Relation Name')
-        alias = node_dict.get('Alias')
-        filter = node_dict.get('Filter')
-        index_name = node_dict.get('Index Name')
-        index_cond = node_dict.get('Index Cond')
-        recheck_cond = node_dict.get('Recheck Cond')
-        function_name = node_dict.get('Function Name')
-
-        if node_type == 'Function Scan':
-            qep_text = "perform Function Scan on function %s" % function_name
-        elif node_type == 'Seq Scan':
-            qep_text = "perform Sequential Scan on table %s as %s" % (relation_name, alias)
-        elif node_type == 'Bitmap Heap Scan':
-            qep_text = "perform Bitmap Heap Scan on table %s as %s with recheck condition %s" \
-                       % (relation_name, alias, recheck_cond)
-        elif node_type == 'Bitmap Index Scan':
-            qep_text = "perform Bitmap Index Scan on index %s with condition %s" % (index_name, index_cond)
-        elif 'Index' in node_type:
-            qep_text = "perform %s on table %s as %s on index %s with condition %s" \
-                       % (node_type, relation_name, alias, index_name, index_cond)
-
-        if filter:
-            qep_text += (' with filter ' + filter)
-
-    # default return value
-    if qep_text == "":
+    if node_type == "Result":
+        qep_text = "get value of operation where"
+    else:
         qep_text = "perform %s operation with" % node_type
-        for key, value in node_dict.items():
-            if 'Cost' in key or key == 'Plan Rows' or key == 'Plan Width':
-                continue
-            qep_text += (" %s is %s, " % (key, value))
+    for key, value in node_dict.items():
+        if key in ['Plan Width', 'Plan Rows', 'Startup Cost', "Total Cost", "Parallel Aware"]:
+            continue
+        qep_text += (" %s is %s, " % (key, value))
     qep_text += "\n there are %s rows returned" % str(plan_rows)
 
     # post process qep_text
-    qep_text = re.sub(r'[()\[\]{}]', '', qep_text.lower())
+    qep_text = re.sub(r'[()\[\]{}$]', '', qep_text.lower())  # remove brackets and $ sign
+    qep_text = re.sub(r'\.(?=[^\d])', ' ', qep_text)  # remove dot relation b/w table name and column name
     qep_text = qep_text.replace(">=", "greater than or equal")\
         .replace("<=", "smaller than or equal")\
         .replace("=", "equal")\
         .replace(">", "greater than")\
-        .replace("<", "smaller than")
+        .replace("<", "smaller than")\
+        .replace(" cond ", " condition ")
     return qep_text
 
 json_files = glob.glob(os.path.join('..', 'data', 'json', "*.json"))

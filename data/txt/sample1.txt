@@ -1,13 +1,13 @@
 hello, suggested query execution plan for your query is as following
 step 1:
- perform sequential scan on table actor as actor
+ perform sequential scan operation with parent relationship is member,  relation name is actor,  alias is actor, 
  there are 200 rows returned
 step 2:
- perform sequential scan on table actor_dup as actor_dup
+ perform sequential scan operation with parent relationship is member,  relation name is actor_dup,  alias is actor_dup, 
  there are 200 rows returned
 step 3:
  from result of step 1,2, perform append operation with parent relationship is outer, 
  there are 400 rows returned
 step 4:
- from result of step 3, perform aggregate operation with strategy is hashed,  group key is 'actor.actor_id', 'actor.first_name', 'actor.last_name', 'actor.last_update', 
+ from result of step 3, perform aggregate operation with strategy is hashed,  group key is 'actor actor_id', 'actor first_name', 'actor last_name', 'actor last_update', 
  there are 400 rows returned
