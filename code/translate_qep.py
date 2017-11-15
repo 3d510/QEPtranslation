@@ -2,7 +2,6 @@ import json
 import queue
 import os
 import re
-import glob
 from collections import OrderedDict
 
 
@@ -92,7 +91,6 @@ def translate_node_to_text(node_dict):
 
     # post process qep_text
     qep_text = re.sub(r'[()\[\]{}$]', '', qep_text.lower())  # remove brackets and $ sign
-    qep_text = re.sub(r'\.(?=[^\d])', ' ', qep_text)  # remove dot relation b/w table name and column name
     qep_text = qep_text.replace(">=", "greater than or equal")\
         .replace("<=", "smaller than or equal")\
         .replace("=", "equal")\
@@ -100,4 +98,3 @@ def translate_node_to_text(node_dict):
         .replace("<", "smaller than")\
         .replace(" cond ", " condition ")
     return qep_text
-

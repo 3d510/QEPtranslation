@@ -1,1 +1,1 @@
-create table tmp as actor_id from actor where actor_id = (select min(actor_id) from actor);
+select actor_id from actor where actor_id = (select min(actor_id) from actor);
