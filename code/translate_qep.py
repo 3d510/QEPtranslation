@@ -96,5 +96,6 @@ def translate_node_to_text(node_dict):
         .replace("=", "equal")\
         .replace(">", "greater than")\
         .replace("<", "smaller than")\
-        .replace(" cond ", " condition ")
+        .replace(" cond ", " condition ")\
+        .replace("returns", 'that returns')
     return qep_text
