@@ -16,6 +16,6 @@ def playAudio(text_path):
     file_mp3 = os.path.join('..', 'data', 'mp3', text_path.split(os.path.sep)[-1].replace('.txt', '.mp3'))
     tts.save(file_mp3)
     print(file_mp3)
-    # os.system("mpg123 " + file_mp3)
-    # os.system("clear")
+    os.system("mpg123\mpg123.exe " + file_mp3)
+    os.system("clear")
 
