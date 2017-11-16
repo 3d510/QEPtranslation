@@ -3,4 +3,6 @@
 sound.mp3
 .pyc
 *__pycache__/
-
+build/
+dist/
+*.spec
