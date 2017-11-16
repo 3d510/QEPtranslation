@@ -20,7 +20,8 @@ def translate_qeptree_to_text(qep_json_path, qep_text_path=os.path.join('..', 'd
         node_visit_order.append(node_id)
 
     qep_tree_dfs(0)
-    node_visit_step = {}  # for each node, save the visit step
+    node_visit_step = {}  # for each node, save the visit step so that later we can recall the childs of a node in
+                          # in some previous steps
     for idx, val in enumerate(node_visit_order):
         node_visit_step[val] = idx+1
 

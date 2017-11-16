@@ -10,12 +10,12 @@ def playAudio(text_path):
     with open(text_path, 'r') as f:
         text = f.read().replace(".", " point ")
 
-    text = re.sub(r'(?=[\d])\.(?=[\d])', ' point ', text)  # replace floating point with 'point' for voice
+    text = re.sub(r'(?<=[\d])\.(?=[\d])', ' point ', text)  # replace floating point with 'point' for voice
 
     tts = gTTS(text=text, lang='en')
     file_mp3 = os.path.join('..', 'data', 'mp3', text_path.split(os.path.sep)[-1].replace('.txt', '.mp3'))
     tts.save(file_mp3)
     print(file_mp3)
-    # os.system("mpg123 " + file_mp3)
-    # os.system("clear")
+    os.system("mpg123 " + file_mp3)
+    os.system("clear")
 
