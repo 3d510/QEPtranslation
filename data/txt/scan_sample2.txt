@@ -1,7 +1,0 @@
-hello, suggested query execution plan for your query is as following
-step 1:
- perform bitmap index scan operation with parent relationship is outer,  index name is actor_idx,  index condition is actor_id smaller than 1000, 
- there are 200 rows returned
-step 2:
- from result of step 1, perform bitmap heap scan operation with relation name is actor,  alias is actor,  recheck condition is actor_id smaller than 1000, 
- there are 200 rows returned

@@ -1,2 +1,6 @@
 gtts
 mpg123
+psycopg2
+easygui
+colorama
+pyinstaller

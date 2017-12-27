@@ -1,4 +1,8 @@
 .idea/
 .pdf
 sound.mp3
-__pycache__/
+.pyc
+*__pycache__/
+build/
+dist/
+*.spec
